@@ -1,0 +1,7 @@
+{
+  "name": "Sum19",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
