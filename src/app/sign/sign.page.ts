@@ -5,17 +5,21 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/a
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
+  selector: 'app-sign',
+  templateUrl: './sign.page.html',
+  styleUrls: ['./sign.page.scss'],
+  standalone: true,
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton],
 })
-export class HomePage {
+export class SignPage implements OnInit {
+
   constructor(
     private alertController: AlertController,
     private router: Router,
     private authService: AuthService,
+
   ) { }
   ngOnInit() {
   }
@@ -27,14 +31,14 @@ export class HomePage {
 
 
     try {
-      await this.authService.register(this.emailInput, this.passwordInput);
+      await this.authService.logine(this.emailInput, this.passwordInput);
       const alert = await this.alertController.create({
-        header: 'Sesion creada',
-        message: 'Tu sesion a sido creada con exito',
+        header: 'Sesion iniciada',
+        message: 'Tu sesion a sido enviado iniciada',
         buttons: ['OK'],
       });
       await alert.present();
-      this.router.navigateByUrl("sign");
+      this.router.navigateByUrl("peliculas");
     } catch (error) {
       const alert = await this.alertController.create({
         header: 'ERROR',
@@ -51,6 +55,9 @@ export class HomePage {
     return emailPattern.test(email);
   }
   onSignUp() {
-    this.router.navigateByUrl("sign");
+    this.router.navigateByUrl("home");
+  }
+  onForgot() {
+    this.router.navigateByUrl("forgot");
   }
 }

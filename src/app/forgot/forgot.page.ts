@@ -5,32 +5,37 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonButton } from '@ionic/a
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss'],
+  selector: 'app-forgot',
+  templateUrl: './forgot.page.html',
+  styleUrls: ['./forgot.page.scss'],
+  standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonButton]
 })
-export class HomePage {
+export class ForgotPage implements OnInit {
+
   constructor(
     private alertController: AlertController,
     private router: Router,
     private authService: AuthService,
   ) { }
+
+
   ngOnInit() {
   }
   emailInput: string = '';
-  passwordInput: string = '';
+
   async onSubmit() {
 
 
 
 
     try {
-      await this.authService.register(this.emailInput, this.passwordInput);
+      await this.authService.resetPassword(this.emailInput)
       const alert = await this.alertController.create({
-        header: 'Sesion creada',
-        message: 'Tu sesion a sido creada con exito',
+        header: 'Contraseña enviada',
+        message: 'Tu contraseña se envio',
         buttons: ['OK'],
       });
       await alert.present();
@@ -38,7 +43,7 @@ export class HomePage {
     } catch (error) {
       const alert = await this.alertController.create({
         header: 'ERROR',
-        message: 'Tu sesion no se pudo iniciar ',
+        message: 'Tu sesion no se pudo encontrar ',
         buttons: ['OK'],
       });
       await alert.present();

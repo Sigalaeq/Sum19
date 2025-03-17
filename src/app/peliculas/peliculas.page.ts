@@ -20,6 +20,7 @@ export class PeliculasPage implements OnInit {
     private alertController: AlertController,
     public reviewService: BaseDatosService,
     private router: Router,
+    private authService: AuthService,
 
   ) { }
 
@@ -137,5 +138,9 @@ export class PeliculasPage implements OnInit {
     });
   
     await alert.present();
+  }
+  onSignUp() {
+    this.authService.logout();
+    this.router.navigateByUrl("sign");
   }
 }
