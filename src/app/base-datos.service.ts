@@ -3,10 +3,10 @@ import { Firestore, collection, addDoc, updateDoc, deleteDoc, doc, collectionDat
 import { Observable } from 'rxjs';
 export interface Task {
   id?: string;
-  tittle: string;
-  description: string;
-  date: string;
-  completed: boolean;
+  Titulo: string;
+  autor: string;
+  opinion: string;
+  calificacion: string;
 }
 
 @Injectable({
