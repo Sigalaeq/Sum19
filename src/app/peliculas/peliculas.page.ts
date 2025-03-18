@@ -96,7 +96,7 @@ export class PeliculasPage implements OnInit {
         },
         {
           name: 'calificacion',
-          type: 'text',
+          type: 'number',
           placeholder: 'Calificacion',
           value: task.calificacion
         }
@@ -142,5 +142,17 @@ export class PeliculasPage implements OnInit {
   onSignUp() {
     this.authService.logout();
     this.router.navigateByUrl("sign");
+  }
+  getCalificacionClass(calificacion: number): string {
+    if (calificacion < 3) {
+      return 'calificacion-baja';
+    } else if (calificacion >= 3 && calificacion < 7) {
+      return 'calificacion-media';
+    } else {
+      return 'calificacion-alta';
+    }
+  }
+  public stringToNumber(value: string): number {
+    return parseFloat(value);
   }
 }
