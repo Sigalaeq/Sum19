@@ -1,180 +1,56 @@
+
 <ion-header [translucent]="true">
-  <ion-toolbar color="primary">
-    <ion-title class="ion-text-center">Reviews de Películas</ion-title>
+  <ion-toolbar>
+    <ion-title>Reviews de peliculas</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true" class="ion-padding">
-  <div class="flex flex-col max-w-4xl mx-auto p-4">
-    <div class="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
-      <h2 class="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">Agrega tu Review</h2>
-      
-      <form #registerForm="ngForm" (ngSubmit)="onSubmit()" class="space-y-4">
-        <div class="mb-4">
-          <label for="Nombre" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Nombre de la película</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <ion-icon name="film-outline" class="text-gray-500 dark:text-gray-400"></ion-icon>
-            </div>
-            <input 
-              id="Nombre" 
-              name="Nombre" 
-              [(ngModel)]="TituloInput"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" 
-              placeholder="Ej: Interestelar" 
-              required 
-              #Nombre="ngModel" 
-            />
-          </div>
-          <div *ngIf="Nombre.invalid && (Nombre.dirty || Nombre.touched)" class="mt-1 text-sm text-red-600">
-            El nombre de la película es obligatorio
-          </div>
-        </div>
-        
-        <div class="mb-4">
-          <label for="Descripcion" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Autor</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <ion-icon name="person-outline" class="text-gray-500 dark:text-gray-400"></ion-icon>
-            </div>
-            <input 
-              id="Descripcion" 
-              name="Descripcion" 
-              [(ngModel)]="autorInput"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" 
-              placeholder="Tu nombre" 
-              required 
-              #Descripcion="ngModel" 
-            />
-          </div>
-          <div *ngIf="Descripcion.invalid && (Descripcion.dirty || Descripcion.touched)" class="mt-1 text-sm text-red-600">
-            El autor es obligatorio
-          </div>
-        </div>
-        
-        <div class="mb-4">
-          <label for="opinion" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Tu opinión</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <ion-icon name="chatbubble-outline" class="text-gray-500 dark:text-gray-400"></ion-icon>
-            </div>
-            <textarea 
-              id="date" 
-              name="date" 
-              [(ngModel)]="opinionInput"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" 
-              placeholder="¿Qué te pareció la película?" 
-              required 
-              rows="3"
-              #date="ngModel" 
-            ></textarea>
-          </div>
-          <div *ngIf="date.invalid && (date.dirty || date.touched)" class="mt-1 text-sm text-red-600">
-            La opinión es obligatoria
-          </div>
-        </div>
-        
-        <div class="mb-4">
-          <label for="calificacion" class="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-300">Calificación (1-5)</label>
-          <div class="relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
-              <ion-icon name="star-outline" class="text-gray-500 dark:text-gray-400"></ion-icon>
-            </div>
-            <input 
-              type="number" 
-              id="calificacion" 
-              name="calificacion" 
-              [(ngModel)]="calificacionInput"
-              min="1"
-              max="5"
-              class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-500 focus:border-cyan-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-cyan-500 dark:focus:border-cyan-500" 
-              placeholder="Del 1 al 5" 
-              required 
-              #calificacion="ngModel" 
-            />
-          </div>
-          <div *ngIf="calificacion && calificacion.invalid && (calificacion.dirty || calificacion.touched)" class="mt-1 text-sm text-red-600">
-            <div *ngIf="calificacion.errors?.['required']">La calificación es obligatoria</div>
-            <div *ngIf="calificacion.errors?.['min'] || calificacion.errors?.['max']">La calificación debe estar entre 1 y 5</div>
-          </div>
-        </div>
-        
-        <button 
-          type="submit"
-          [disabled]="registerForm.invalid"
-          class="w-full text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-3 text-center me-2 mb-2 disabled:opacity-50 disabled:cursor-not-allowed"
-        >
-          <ion-icon name="add-circle-outline" class="mr-2"></ion-icon>
-          Agregar Review
-        </button>
-      </form>
-    </div>
+<ion-content [fullscreen]="true">
+  <h1 style="text-align: center; font-size: 60px;">Agrega tu review</h1>
 
-    <div class="w-full bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-xl font-bold text-gray-800 dark:text-white">Películas Reseñadas</h2>
-        <button 
-          (click)="onSignUp()" 
-          type="button"
-          class="inline-flex items-center justify-center text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-md shadow-cyan-500/30 dark:shadow-md dark:shadow-cyan-800/50 font-medium rounded-lg text-sm px-4 py-2 text-center"
-        >
-          <ion-icon name="log-out-outline" class="mr-1"></ion-icon>
-          Cerrar Sesión
-        </button>
-      </div>
-      
-      <div class="overflow-x-auto">
-        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-          <thead class="bg-gray-50 dark:bg-gray-700">
-            <tr>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Película</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Autor</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Opinión</th>
-              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Calificación</th>
-              <th scope="col" class="px-6 py-3 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Acciones</th>
-            </tr>
-          </thead>
-          <tbody class="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
-            <tr *ngFor="let item of tasks$ | async" class="hover:bg-gray-50 dark:hover:bg-gray-700">
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{{ item.Titulo }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">{{ item.autor }}</td>
-              <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">
-                <div class="max-w-xs overflow-hidden text-ellipsis">{{ item.opinion }}</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                <div class="flex items-center">
-                  <span class="text-yellow-400 flex">
-                    <ion-icon *ngFor="let star of [1,2,3,4,5]" 
-                      [name]="star <= item.calificacion ? 'star' : 'star-outline'"
-                      class="text-yellow-400">
-                    </ion-icon>
-                  </span>
-                  <span class="ml-1">{{ item.calificacion }}/5</span>
-                </div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300 text-center">
-                <div class="flex space-x-2 justify-center">
-                  <button 
-                    (click)="Editar(item.id!, item)" 
-                    class="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <ion-icon name="create-outline" class="w-5 h-5"></ion-icon>
-                  </button>
-                  <button 
-                    (click)="borrar(item.id!)" 
-                    class="text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-300 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-                    <ion-icon name="trash-outline" class="w-5 h-5"></ion-icon>
-                  </button>
-                </div>
-              </td>
-            </tr>
-            <tr *ngIf="(tasks$ | async)?.length === 0">
-              <td colspan="5" class="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
-                No hay reviews disponibles todavía. 
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <form #registerForm="ngForm" (ngSubmit)="onSubmit()">
+    <input id="Nombre" name="Nombre" [(ngModel)]="TituloInput"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Nombre de la pelicula" required #Nombre="ngModel" />
+    <input id="Descripcion" name="Descripcion" [(ngModel)]="autorInput"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Agrega el autor" required #Descripcion="ngModel" />
+    <input  id="date" name="date" [(ngModel)]="opinionInput"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Agrega tu opinion" required #date="ngModel" />
+      <input type="number" id="Descripcion" name="Descripcion" [(ngModel)]="calificacionInput"
+      class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+      placeholder="Agrega tu calificacion" required #Descripcion="ngModel" />
+    <button type="submit"
+      class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
+      [disabled]="registerForm.invalid">
+      Agregar review
+    </button>
+  </form>
+  <button (click)="onSignUp()" type="button"
+  class="text-white bg-gradient-to-r from-cyan-400 via-cyan-500 to-cyan-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-cyan-300 dark:focus:ring-cyan-800 shadow-lg shadow-cyan-500/50 dark:shadow-lg dark:shadow-cyan-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">
+  Cerrar sesion
+</button>
+  <div>
+    <h1 style="text-align: center;">Peliculas</h1>
+    <ion-grid>
+      <ion-row style="text-align: center;">
+        <ion-col>Nombre de la pelicula</ion-col>
+        <ion-col>Autor</ion-col>
+        <ion-col> opinion</ion-col>
+        <ion-col> Calificacion</ion-col>
+        <ion-col> Borrar</ion-col>
+        <ion-col> Editar</ion-col>
+      </ion-row>
+      <ion-row *ngFor="let item of tasks$ | async" style="text-align: center;">
+        <ion-col> {{ item.Titulo }}</ion-col>
+        <ion-col> {{ item.autor }}</ion-col>
+        <ion-col> {{ item.opinion}}</ion-col>
+        <ion-col> {{ item.calificacion}}</ion-col>
+        <ion-col><button (click)="borrar(item.id!)"> Eliminar</button></ion-col>
+        <ion-col><button (click)="Editar(item.id!, item)"> Editar</button></ion-col>
+      </ion-row>
+    </ion-grid>
   </div>
 </ion-content>
+
